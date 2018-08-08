@@ -97,3 +97,10 @@ func (s *SSHAddr) Port() int {
 	}
 	return s.port
 }
+
+func (s *SSHAddr) Destination() string {
+	if s == nil {
+		return ""
+	}
+	return s.dest
+}
