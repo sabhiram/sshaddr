@@ -19,9 +19,30 @@ func TestParse(t *testing.T) {
 		exPort int
 		exDest string
 	}{
-		{"user:1@foobar.com:1234:/tmp/foobar", "user", "1", "foobar.com", 1234, "/tmp/foobar"},
-		{"user@foobar.com:1234:/tmp/foobar", "user", "", "foobar.com", 1234, "/tmp/foobar"},
-		{"user@foobar.com:/tmp/foobar", "user", "", "foobar.com", 22, "/tmp/foobar"},
+		{
+			addr:   "user:1@foobar.com:1234:/tmp/foobar",
+			exUser: "user",
+			exPass: "1",
+			exHost: "foobar.com",
+			exPort: 1234,
+			exDest: "/tmp/foobar",
+		},
+		{
+			addr:   "user@foobar.com:1234:/tmp/foobar",
+			exUser: "user",
+			exPass: "",
+			exHost: "foobar.com",
+			exPort: 1234,
+			exDest: "/tmp/foobar",
+		},
+		{
+			addr:   "user@foobar.com:/tmp/foobar",
+			exUser: "user",
+			exPass: "",
+			exHost: "foobar.com",
+			exPort: 22,
+			exDest: "/tmp/foobar",
+		},
 	} {
 		ssha, err := Parse(tc.addr)
 		fatalIfError(t, err)
